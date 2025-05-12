@@ -38,18 +38,18 @@ function renderTabs() {
   const tabsPerRow = Math.ceil(tabNames.length / rows);
   // Responsive overlap: less overlap if more space is available
   const containerWidth = tabsInner.parentElement.offsetWidth || window.innerWidth;
-  const minOverlap = 8; // px, minimum overlap (just a slight overlap)
+  const minOverlap = 4; // px, minimum overlap (just a slight overlap)
   const maxOverlap = 40; // px, maximum overlap
-  // Calculate ideal overlap so tabs fit nicely
   let overlap = maxOverlap;
-  const totalTabWidth = tabsPerRow * tabWidth;
-  if (totalTabWidth > containerWidth) {
-    overlap = maxOverlap;
+  const totalMinOverlapWidth = tabWidth * tabsPerRow - minOverlap * (tabsPerRow - 1);
+  if (containerWidth >= totalMinOverlapWidth) {
+    overlap = minOverlap;
   } else {
-    // Reduce overlap if there's extra space
-    const available = containerWidth - tabWidth;
-    overlap = Math.max(minOverlap, tabWidth - Math.floor(available / (tabsPerRow - 1)));
-    overlap = Math.min(overlap, maxOverlap);
+    // Calculate the overlap needed to fit all tabs
+    overlap = Math.min(
+      maxOverlap,
+      tabWidth - Math.floor((containerWidth - tabWidth) / (tabsPerRow - 1))
+    );
   }
   // Calculate vertical gap between rows so tabs fill logo height
   const tabHeight = Math.floor((logoHeight - 2 * 8) / rows); // 8px vertical gap between rows
