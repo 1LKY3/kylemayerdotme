@@ -39,7 +39,7 @@ function renderTabs() {
   // Responsive overlap: less overlap if more space is available
   const containerWidth = tabsInner.parentElement.offsetWidth || window.innerWidth;
   const minOverlap = 4; // px, minimum overlap (just a slight overlap)
-  const maxOverlap = 40; // px, maximum overlap
+  const maxOverlap = 80; // px, maximum overlap
   let overlap = maxOverlap;
   const totalMinOverlapWidth = tabWidth * tabsPerRow - minOverlap * (tabsPerRow - 1);
   if (containerWidth >= totalMinOverlapWidth) {
