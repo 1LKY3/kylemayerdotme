@@ -54,7 +54,7 @@ header {
   color: #111;
   border: 2px solid #111;
   border-bottom: none;
-  border-radius: 12px 12px 0 0;
+  border-radius: 12px 12px 0 0 !important; /* Only top corners rounded for all tabs */
   padding: 0 1.2rem;
   cursor: pointer;
   font-weight: 600;
@@ -92,9 +92,6 @@ header {
   border-bottom: 2px solid #fff;
   z-index: 2;
   box-shadow: 0 12px 48px 0 rgba(0,0,0,0.38), 0 6px 24px 0 rgba(0,0,0,0.40);
-}
-.tab:last-child {
-  border-radius: 0 12px 12px 0;
 }
 .tab-icon {
   display: inline-block;
