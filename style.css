@@ -1,0 +1,198 @@
+body {
+  background: #fff;
+  color: #111;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: flex-end; /* Align logo and tabs at the bottom */
+  flex-direction: row;
+  padding: 2rem 0 2rem 0;
+  position: relative;
+}
+.logo-link {
+  display: flex;
+  align-items: flex-start;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  height: 150px; /* Increased from 140px for 10px lower alignment */
+}
+.logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 0;
+  box-shadow: 0 16px 48px 0 rgba(0,0,0,0.32), 0 8px 16px 0 rgba(0,0,0,0.28);
+  filter: drop-shadow(0 4px 16px rgba(255,255,255,0.18));
+}
+.tabs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 150px; /* Increased from 140px */
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.tabs-inner {
+  position: relative;
+  height: 150px; /* 3 rows of 50px each */
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 1rem;
+}
+.tab {
+  position: absolute;
+  height: 48px;
+  width: 160px;
+  /* Only visual styles below */
+  background: #fff;
+  color: #111;
+  border: 2px solid #111;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 0 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  text-align: left;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04), 0 1px 2px 0 rgba(0,0,0,0.06);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.22);
+  box-sizing: border-box;
+}
+.tab:first-child {
+  margin-left: 0;
+}
+.tab:nth-child(7n+1) {
+  margin-left: 0; /* No overlap for first tab in each row */
+}
+.tab:not(:nth-child(7n)) {
+  margin-right: -12px;
+}
+.tab img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-left: 0;
+}
+.tab span {
+  display: inline-block;
+  margin-left: -14px; /* Move tab text further to the left */
+}
+.tab.active {
+  background: var(--tab-active-bg, #232323);
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  z-index: 2;
+  box-shadow: 0 12px 48px 0 rgba(0,0,0,0.38), 0 6px 24px 0 rgba(0,0,0,0.40);
+}
+.tab:last-child {
+  border-radius: 0 12px 12px 0;
+}
+.tab-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-left: 0;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+.tab-content-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.tab-content-text {
+  flex: 1 1 0;
+}
+.tab-content-image {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.main-tab-image {
+  width: 180px;
+  height: 180px;
+  opacity: 0.75;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.18);
+  background: #fff;
+  object-fit: contain;
+}
+@media (max-width: 1200px) {
+  .tabs-inner {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .tabs-inner {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+  .tab-content-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .tab-content-image {
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .main-tab-image {
+    width: 120px;
+    height: 120px;
+  }
+}
+@media (max-width: 700px) {
+  .tabs-inner {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .tabs-inner {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+@media (max-width: 500px) {
+  .tabs-inner {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+  .tab {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.3rem;
+  }
+}
+main {
+  min-height: 300px;
+  padding: 2rem;
+  /* Add a lighter center to the radial gradient for a lifted effect */
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.38) 0%, rgba(0,0,0,0) 65%, rgba(0,0,0,0.18) 100%);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin: 0 2rem 2rem 2rem;
+}
+
+/* Only apply the texture for the kylemayer.me tab's main page */
+#tab-content .tab-content-inner {
+  background: none;
+}
+#tab-content.kylemayerme-bg .tab-content-inner {
+  background: none;
+}
