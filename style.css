@@ -47,23 +47,32 @@ header {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Styles for the dropdown menu */
+/* Improved dropdown styles */
 .tab-dropdown {
   display: none;
-  width: 100%;
-  padding: 0.5rem;
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  padding: 0.8rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid #111;
+  border-radius: 12px;
   background-color: #fff;
   color: #111;
   cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .tab-dropdown:focus {
   outline: none;
-  border-color: #66afe9;
-  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+  border-color: #111;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.tab-dropdown option {
+  padding: 8px;
+  font-weight: 600;
 }
 
 /* Media query for smaller screens */
@@ -354,5 +363,65 @@ main {
   
   .tab:hover:not(.active) {
     transform: none;
+  }
+}
+
+/* Adjust mobile breakpoint */
+@media (max-width: 768px) {
+  .tabs-inner {
+    display: none !important;
+  }
+  
+  .tab-dropdown {
+    display: block;
+  }
+  
+  .logo-link {
+    height: 120px;
+    margin: 1rem;
+  }
+  
+  .logo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  header {
+    padding: 1rem 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tabs {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
+  }
+  
+  main {
+    margin: 1rem;
+    min-height: 200px;
+  }
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 480px) {
+  .logo-link {
+    height: 100px;
+    margin: 0.5rem;
+  }
+  
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .tab-content-inner {
+    padding: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 }
