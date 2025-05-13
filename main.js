@@ -1,140 +1,205 @@
-const tabCount = 20;
-const tabNames = [
+// Constants
+const TAB_COUNT = 20;
+const TAB_WIDTH = 110;
+const LOGO_HEIGHT = 150;
+const ROWS = 3;
+const TAB_NAMES = [
   'kylemayer.me',
   'Minecraft',
-  ...Array.from({ length: tabCount - 2 }, (_, i) => `Project ${i + 3}`)
+  ...Array.from({ length: TAB_COUNT - 2 }, (_, i) => `Project ${i + 3}`)
 ];
-const tabIcons = [
+const TAB_ICONS = [
   '', // No icon for first tab
   'mserver.png', // PNG icon for Minecraft tab
-  ...Array(tabCount - 2).fill('')
-];
-const tabColors = [
-  '#b8bec5', // Slightly darker, less blue for kylemayer.me tab main page
-  '#b3e5fc',
-  '#dee2e6', '#ced4da', '#adb5bd', '#6c757d', '#495057', '#343a40', '#212529', '#fff3cd',
-  '#ffeeba', '#ffdf7e', '#ffd966', '#ffc107', '#ffb300', '#ff9800', '#ff7043', '#ff5722', '#e57373', '#f06292'
+  ...Array(TAB_COUNT - 2).fill('')
 ];
 
-// Helper to blend two hex colors
-function blendColors(c1, c2, percent) {
-  const hex = x => parseInt(x, 16);
-  c1 = c1.replace('#', '');
-  c2 = c2.replace('#', '');
-  const r = Math.round(hex(c1.substring(0,2)) * (1-percent) + hex(c2.substring(0,2)) * percent);
-  const g = Math.round(hex(c1.substring(2,4)) * (1-percent) + hex(c2.substring(2,4)) * percent);
-  const b = Math.round(hex(c1.substring(4,6)) * (1-percent) + hex(c2.substring(4,6)) * percent);
-  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+// Cache DOM elements
+const TABS_INNER = document.getElementById('tabs-inner');
+const TAB_CONTENT = document.getElementById('tab-content');
+const TAB_DROPDOWN = document.getElementById('tab-dropdown');
+
+// Cache tab metrics for performance
+const calculateTabMetrics = (() => {
+  let cache = null;
+  return (containerWidth) => {
+    if (cache && cache.width === containerWidth) return cache;
+    
+    const tabsPerRow = Math.ceil(TAB_NAMES.length / ROWS);
+    const minOverlap = 4;
+    const maxOverlap = 80;
+    
+    let overlap = maxOverlap;
+    const totalMinOverlapWidth = TAB_WIDTH * tabsPerRow - minOverlap * (tabsPerRow - 1);
+    
+    if (containerWidth >= totalMinOverlapWidth) {
+      overlap = minOverlap;
+    } else {
+      overlap = Math.min(
+        maxOverlap,
+        TAB_WIDTH - Math.floor((containerWidth - TAB_WIDTH) / (tabsPerRow - 1))
+      );
+    }
+    
+    const tabHeight = Math.floor((LOGO_HEIGHT - 2 * 8) / ROWS);
+    const rowGap = Math.floor((LOGO_HEIGHT - tabHeight * ROWS) / (ROWS - 1));
+    
+    cache = { width: containerWidth, overlap, tabHeight, rowGap, tabsPerRow };
+    return cache;
+  };
+})();
+
+// Handle image loading errors
+function handleImageError(e) {
+  console.warn(`Failed to load image: ${e.target.src}`);
+  e.target.style.display = 'none';
 }
 
-const tabsInner = document.getElementById('tabs-inner');
-const tabContent = document.getElementById('tab-content');
-
 function renderTabs() {
-  tabsInner.innerHTML = '';
-  const tabWidth = 110; // Decreased from 160 for a more compact tab look
-  const logoHeight = 150; // logo is 150px tall
-  const rows = 3;
-  const tabsPerRow = Math.ceil(tabNames.length / rows);
-  // Responsive overlap: less overlap if more space is available
-  const containerWidth = tabsInner.parentElement.offsetWidth || window.innerWidth;
-  const minOverlap = 4; // px, minimum overlap (just a slight overlap)
-  const maxOverlap = 80; // px, maximum overlap
-  let overlap = maxOverlap;
-  const totalMinOverlapWidth = tabWidth * tabsPerRow - minOverlap * (tabsPerRow - 1);
-  if (containerWidth >= totalMinOverlapWidth) {
-    overlap = minOverlap;
-  } else {
-    // Calculate the overlap needed to fit all tabs
-    overlap = Math.min(
-      maxOverlap,
-      tabWidth - Math.floor((containerWidth - tabWidth) / (tabsPerRow - 1))
-    );
-  }
-  // Calculate vertical gap between rows so tabs fill logo height
-  const tabHeight = Math.floor((logoHeight - 2 * 8) / rows); // 8px vertical gap between rows
-  const rowGap = Math.floor((logoHeight - tabHeight * rows) / (rows - 1));
-  for (let i = 0; i < tabNames.length; i++) {
+  TABS_INNER.innerHTML = '';
+  const containerWidth = TABS_INNER.parentElement.offsetWidth || window.innerWidth;
+  const { overlap, tabHeight, rowGap, tabsPerRow } = calculateTabMetrics(containerWidth);
+  
+  const fragment = document.createDocumentFragment();
+  
+  TAB_NAMES.forEach((name, i) => {
     const row = Math.floor(i / tabsPerRow);
     const col = i % tabsPerRow;
     const tab = document.createElement('div');
+    
     tab.className = 'tab' + (i === 0 ? ' active' : '');
-    if (tabIcons && tabIcons[i]) {
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', `tab-panel-${i}`);
+    tab.setAttribute('tabindex', '0'); // Make tab focusable
+    
+    if (TAB_ICONS[i]) {
       const icon = document.createElement('img');
-      icon.src = tabIcons[i];
+      icon.src = TAB_ICONS[i];
       icon.alt = 'Tab Icon';
       icon.className = 'tab-icon';
+      icon.onerror = handleImageError;
       tab.appendChild(icon);
     }
+    
     const text = document.createElement('span');
-    text.textContent = tabNames[i];
+    text.textContent = name;
     tab.appendChild(text);
-    let activeBg;
-    if (i === 1) {
-      activeBg = '#b3e5fc';
-    } else {
-      activeBg = tabColors[i % tabColors.length];
-    }
+    
+    const activeBg = i === 1 ? 'var(--minecraft-tab-color)' : `var(--project-tab-color-${i % 18})`;
     tab.style.setProperty('--tab-active-bg', activeBg);
-    tab.onclick = () => selectTab(i);
+    
     // Positioning
-    tab.style.left = (col * (tabWidth - overlap)) + 'px';
+    tab.style.left = (col * (TAB_WIDTH - overlap)) + 'px';
     tab.style.top = (row * (tabHeight + rowGap)) + 'px';
-    tab.style.width = tabWidth + 'px';
+    tab.style.width = TAB_WIDTH + 'px';
     tab.style.height = tabHeight + 'px';
-    // If selected, bring to front and remove overlap
-    if (i === document.querySelector('.tab.active') ? Array.from(tabsInner.children).indexOf(document.querySelector('.tab.active')) : 0) {
-      tab.style.zIndex = 10;
-      tab.style.left = (col * (tabWidth - overlap) + overlap/2) + 'px';
-      tab.style.width = (tabWidth + overlap) + 'px';
-    }
-    tabsInner.appendChild(tab);
-  }
-  // Set container width and height to fit tabs
-  tabsInner.style.minWidth = ((tabsPerRow-1)*(tabWidth-overlap) + tabWidth) + 'px';
-  tabsInner.style.height = logoHeight + 'px';
+    
+    // Event listeners
+    tab.onclick = () => selectTab(i);
+    tab.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectTab(i);
+      }
+    };
+    
+    fragment.appendChild(tab);
+  });
+  
+  TABS_INNER.appendChild(fragment);
+  
+  // Set container dimensions
+  TABS_INNER.style.minWidth = ((tabsPerRow-1)*(TAB_WIDTH-overlap) + TAB_WIDTH) + 'px';
+  TABS_INNER.style.height = LOGO_HEIGHT + 'px';
 }
 
 function selectTab(idx) {
+  // Update tab states
   document.querySelectorAll('.tab').forEach((tab, i) => {
-    tab.classList.toggle('active', i === idx);
+    const isActive = i === idx;
+    tab.classList.toggle('active', isActive);
+    tab.setAttribute('aria-selected', isActive.toString());
   });
-  let imageHtml = '';
-  if (idx === 1) {
-    imageHtml = `<img src="mserver.png" alt="Minecraft Icon" class="main-tab-image" />`;
-  }
-  let bgColor;
-  if (idx === 1) {
-    bgColor = '#b3e5fc';
-  } else {
-    bgColor = tabColors[idx % tabColors.length];
-  }
-  tabContent.innerHTML = `
+  
+  // Prepare content
+  const imageHtml = idx === 1 
+    ? `<img src="mserver.png" alt="Minecraft Icon" class="main-tab-image" onerror="this.style.display='none'" loading="lazy" />`
+    : '';
+    
+  const bgColor = idx === 1 
+    ? 'var(--minecraft-tab-color)' 
+    : `var(--project-tab-color-${idx % 18})`;
+  
+  // Update content
+  TAB_CONTENT.innerHTML = `
     <div class="tab-content-inner">
       <div class="tab-content-text">
-        <h2>${tabNames[idx]}</h2>
-        <p>This is a placeholder for ${tabNames[idx]}.<br>Each project tab can have its own unique style and content.</p>
-        </p>This is more "placeholder" text for ${tabNames[idx]}.<br>It can be replaced with actual content later.</p>
+        <h2>${TAB_NAMES[idx]}</h2>
+        <p>This is a placeholder for ${TAB_NAMES[idx]}.<br>Each project tab can have its own unique style and content.</p>
+        <p>This is more "placeholder" text for ${TAB_NAMES[idx]}.<br>It can be replaced with actual content later.</p>
         <p>Click the logo to return to the main page.</p>
+        <ul>
+          <li>List item 1</li>
+          <li>List item 2</li>
+          <li>List item 3</li>
+        </ul>
       </div>
       <div class="tab-content-image">
         ${imageHtml}
       </div>
     </div>
   `;
-  tabContent.style.background = bgColor;
-  // Remove the special class for the kylemayer.me tab
-  tabContent.classList.remove('kylemayerme-bg');
+  
+  // Update attributes and styles
+  TAB_CONTENT.setAttribute('role', 'tabpanel');
+  TAB_CONTENT.setAttribute('aria-labelledby', `tab-${idx}`);
+  TAB_CONTENT.setAttribute('id', `tab-panel-${idx}`);
+  TAB_CONTENT.style.background = bgColor;
+  TAB_CONTENT.classList.remove('kylemayerme-bg');
 }
 
+// Keyboard navigation for tabs
+document.addEventListener('keydown', (e) => {
+  if (e.target.classList.contains('tab')) {
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const currentIndex = tabs.indexOf(e.target);
+    
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        if (currentIndex < tabs.length - 1) tabs[currentIndex + 1].focus();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        if (currentIndex > 0) tabs[currentIndex - 1].focus();
+        break;
+    }
+  }
+});
+
+// Initialize
 renderTabs();
 selectTab(0);
 
-// Make logo link select the 'kylemayer.me' tab
+// Event Listeners
 const logoLink = document.getElementById('logo-link');
 if (logoLink) {
-  logoLink.addEventListener('click', function(e) {
+  logoLink.addEventListener('click', (e) => {
     e.preventDefault();
     selectTab(0);
   });
 }
+
+if (TAB_DROPDOWN) {
+  TAB_DROPDOWN.addEventListener('change', (e) => {
+    selectTab(parseInt(e.target.value));
+  });
+}
+
+// Handle window resize
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(renderTabs, 150); // Debounce resize events
+});
