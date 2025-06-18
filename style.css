@@ -403,7 +403,8 @@ main {
   }
   
   main {
-    margin: 1rem;
+    padding: 1rem;
+    width: 100%;
     min-height: 200px;
   }
 }
@@ -426,7 +427,8 @@ main {
   
   main {
     padding: 0.5rem;
-    margin: 0.5rem;
+    padding: 0.5rem;
+    width: 100%;
     min-height: 120px;
   }
 
