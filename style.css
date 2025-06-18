@@ -404,7 +404,7 @@ main {
   }
   
   main {
-    margin: 1rem;
+    margin: 1rem auto; /* Center the main content and add vertical margin */
     min-height: 200px;
   }
 }
@@ -426,7 +426,7 @@ main {
   }
   
   main {
-    margin: 0.5rem;
+    margin: 0.5rem auto; /* Center the main content and add vertical margin */
     min-height: 120px;
   }
 
