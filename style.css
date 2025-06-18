@@ -251,9 +251,10 @@ header {
   }
   .tab-content-inner {
     flex-direction: column;
-    align-items: center; /* Center items horizontally in column layout */
+    align-items: stretch; /* Stretch items horizontally in column layout */
     width: 100%; /* Ensure flex container takes full width */
     box-sizing: border-box; /* Include padding and border in width */
+    gap: 0; /* Remove gap on mobile */
   }
   .tab-content-image {
     justify-content: center;
@@ -395,12 +396,6 @@ main {
 
 /* Adjust mobile breakpoint */
 @media (max-width: 768px) {
-  body { /* Use flexbox on body to center main */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .tabs-inner {
     display: none !important;
   }
@@ -432,9 +427,12 @@ main {
   }
   
   main {
-    margin: 1rem 0; /* Remove auto margin, centering handled by body flexbox */
-    padding: 1rem 0.5rem; /* Adjust horizontal padding for smaller screens */
-    width: 100%; /* Explicitly set width to 100% */
+    margin: 1rem 0 !important; /* Remove all horizontal margin */
+    padding: 1rem 0 !important; /* Remove all horizontal padding */
+    width: 100vw; /* Set width to 100% of viewport width */
+    position: relative; /* Needed for potential positioning adjustments */
+    left: 50%; /* Move element to the horizontal center */
+    transform: translateX(-50%); /* Adjust position to truly center */
     min-height: 200px;
   }
 }
@@ -452,13 +450,16 @@ main {
   }
   
   .tab-content-inner {
-    padding: 0.5rem;
+    padding: 0.5rem 0; /* Adjust horizontal padding for very small screens */
   }
   
   main {
-    margin: 0.5rem auto; /* Center the main content and add vertical margin */
-    padding: 0.5rem 0.25rem; /* Adjust horizontal padding for very small screens */
-    width: 100%; /* Explicitly set width to 100% */
+    margin: 0.5rem 0 !important; /* Remove all horizontal margin */
+    padding: 0.5rem 0 !important; /* Remove all horizontal padding */
+    width: 100vw; /* Set width to 100% of viewport width */
+    position: relative; /* Needed for potential positioning adjustments */
+    left: 50%; /* Move element to the horizontal center */
+    transform: translateX(-50%); /* Adjust position to truly center */
     min-height: 120px;
   }
   
