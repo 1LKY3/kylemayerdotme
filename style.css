@@ -79,14 +79,17 @@ header {
 @media (max-width: 700px) {
   .tabs-inner {
     display: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .tab-dropdown {
     display: block;
-    padding: 0.8rem;
-    font-size: 1.1rem;
+    padding: 1.1rem 0.8rem;
+    font-size: 1.15rem;
     margin: 0 1rem;
     max-width: calc(100% - 2rem);
+    min-height: 48px;
   }
   
   header {
@@ -119,7 +122,8 @@ header {
 
 .tab {
   position: absolute;
-  height: 48px;
+  height: 52px;
+  min-height: 44px;
   width: 160px;
   /* Only visual styles below */
   background: #fff;
@@ -417,11 +421,17 @@ main {
   }
   
   .tab-content-inner {
-    padding: 1rem;
+    padding: 0.5rem;
   }
   
+  main {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    min-height: 120px;
+  }
+
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 0.5rem;
   }
 }
