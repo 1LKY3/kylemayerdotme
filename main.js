@@ -152,17 +152,19 @@ function selectTab(idx) {
         </div>
         <section id="packages-preview" style="max-width: 1000px; margin: 2rem auto;">
           <div class="package-card" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1.5rem; width: 280px; height: 180px; display: flex; flex-direction: column; align-items: center; margin: 0.3rem; text-align: center;">
-            <div class="tier" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Starter</div>
+            <div class="tier" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Profile</div>
             <div class="price" style="color: var(--accent); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">$100/mo</div>
-            <div class="desc" style="font-size: 0.95rem; color: #444; line-height: 1.4; margin-bottom: 0.5rem;">Perfect for new businesses. Includes 1 page, hosting, and support.</div>
+            <div class="desc" style="font-size: 0.95rem; color: #444; line-height: 1.4; margin-bottom: 0.5rem;">A clean, professional digital business card—efficient and elegant.</div>
           </div>
           <div class="package-card" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1.5rem; width: 280px; height: 180px; display: flex; flex-direction: column; align-items: center; margin: 0.3rem; text-align: center;">
-            <div class="tier" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Pro</div>
+            <div class="tier" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;"><del>Studio</del></div>
+            <p style="font-size: 0.8rem; color: #888; margin-top: 0.2rem; margin-bottom: 0.5rem;">The next 20 customers upgraded to Studio for free.</p>
             <div class="price" style="color: var(--accent); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">$250/mo</div>
             <div class="desc" style="font-size: 0.95rem; color: #444; line-height: 1.4; margin-bottom: 0.5rem;">Multi-page site, custom design, and priority support.</div>
           </div>
           <div class="package-card" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1.5rem; width: 280px; height: 180px; display: flex; flex-direction: column; align-items: center; margin: 0.3rem; text-align: center;">
-            <div class="tier" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Elite</div>
+            <div class="tier" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;"><del>Elite</del></div>
+            <p style="font-size: 0.8rem; color: #888; margin-top: 0.2rem; margin-bottom: 0.5rem;">Not currently available</p>
             <div class="price" style="color: var(--accent); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">$500/mo</div>
             <div class="desc" style="font-size: 0.95rem; color: #444; line-height: 1.4; margin-bottom: 0.5rem;">Full-featured, e-commerce, integrations, and white-glove service.</div>
           </div>
