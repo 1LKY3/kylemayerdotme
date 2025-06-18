@@ -148,7 +148,7 @@ function selectTab(idx) {
         </nav>
         <div class="hero" style="max-width: 800px;">
           <h1>Your Business Deserves to Be Seen.<br>I'll Make Sure It Is.</h1>
-          <div class="sub-headline" style="margin: 1.5rem auto;">Get online fast with a personalized demo. Zero tech headaches.</div>
+          <div class="sub-headline" style="margin: 1.5rem auto;">Get your business online fast. Zero tech headaches.</div>
         </div>
         <section id="packages-preview" style="max-width: 1000px; margin: 2rem auto;">
           <div class="package-card" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1.5rem; width: 280px; height: 180px; display: flex; flex-direction: column; align-items: center; margin: 0.3rem; text-align: center;">
@@ -170,7 +170,7 @@ function selectTab(idx) {
         <div id="demo-section" class="sales-section" style="width: 100%;">
           <div class="contact-form" style="margin: 3rem auto; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
             <h2 style="margin-bottom: 1.5rem;">Request Your Free Demo</h2>
-            <form style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem 1.5rem; align-items: center; width: 100%; max-width: 500px;">
+            <form style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem 2.5rem; align-items: center; width: 100%; max-width: 500px;">
               <input type="text" placeholder="Your Name" required style="width: 100%; padding: 0.8rem; border-radius: 6px; border: 1px solid #bbb;">
               <input type="text" placeholder="Business Name" required style="width: 100%; padding: 0.8rem; border-radius: 6px; border: 1px solid #bbb;">
               <input type="email" placeholder="Email Address" required style="width: 100%; padding: 0.8rem; border-radius: 6px; border: 1px solid #bbb;">
@@ -205,11 +205,11 @@ function selectTab(idx) {
             </div>
           </div>
         </div>
-        <footer style="background: #111; color: #fff; text-align: center; padding: 2rem 0 1.2rem 0; margin-top: 2.5rem;">
+        <footer style="background: #111; color: #fff; text-align: center; padding: 2rem 1.5rem 1.2rem 1.5rem; margin-top: 2.5rem;">
           <div class="qr-logo-box" style="max-width: 120px; margin: 0 auto 1.2rem auto;">
             <img src="kylemayerdotme.png" alt="Logo" style="width:100%; max-width:120px;">
           </div>
-          <div class="guarantee-badge" style="display: inline-block; background: var(--accent); color: #fff; border-radius: 20px; padding: 0.4rem 1.2rem; font-weight: 600; margin-bottom: 1rem;">30-Day Satisfaction Guarantee</div>
+          <div class="guarantee-badge" style="display: inline-block; background: var(--accent); color: #fff; border-radius: 20px; padding: 0.4rem 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">30-Day Satisfaction Guarantee</div>
           <div>Contact: <a href="mailto:kyle@kylemayer.me" style="color:#fff; text-decoration:underline;">kyle@kylemayer.me</a></div>
         </footer>
       </div>
