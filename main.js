@@ -205,7 +205,7 @@ function selectTab(idx) {
             </div>
           </div>
         </div>
-        <footer style="background: #111; color: #fff; text-align: center; padding: 2rem 1.5rem 1.2rem 1.5rem; margin-top: 2.5rem;">
+        <footer style="background: #111; color: #fff; text-align: center; padding: 2rem 2.5rem 1.2rem 2.5rem; margin-top: 2.5rem;">
           <div class="qr-logo-box" style="max-width: 120px; margin: 0 auto 1.2rem auto;">
             <img src="kylemayerdotme.png" alt="Logo" style="width:100%; max-width:120px;">
           </div>
