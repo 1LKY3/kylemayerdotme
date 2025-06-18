@@ -287,6 +287,7 @@ main {
   border-radius: 0 0 16px 16px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   margin: 0 2rem 2rem 2rem;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 /* Only apply the texture for the kylemayer.me tab's main page */
@@ -403,8 +404,7 @@ main {
   }
   
   main {
-    padding: 1rem;
-    width: 100%;
+    margin: 1rem;
     min-height: 200px;
   }
 }
@@ -426,9 +426,7 @@ main {
   }
   
   main {
-    padding: 0.5rem;
-    padding: 0.5rem;
-    width: 100%;
+    margin: 0.5rem;
     min-height: 120px;
   }
 
