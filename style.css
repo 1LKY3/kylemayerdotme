@@ -1,3 +1,8 @@
+html, body {
+  width: 100%; /* Ensure html and body take full viewport width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
 body {
   background: #fff;
   color: #111;
@@ -246,7 +251,9 @@ header {
   }
   .tab-content-inner {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center; /* Center items horizontally in column layout */
+    width: 100%; /* Ensure flex container takes full width */
+    box-sizing: border-box; /* Include padding and border in width */
   }
   .tab-content-image {
     justify-content: center;
@@ -257,6 +264,26 @@ header {
     height: 120px;
   }
 }
+
+@media (max-width: 900px) {
+  .tab-content-inner > div { /* Target direct div children within tab-content-inner */
+    max-width: 100%; /* Ensure cards don't exceed container width */
+    box-sizing: border-box; /* Include padding and border in width */
+  }
+}
+
+@media (max-width: 900px) {
+  .tab-content-inner > div * { /* Target all elements inside the direct div children */
+    word-wrap: break-word; /* Ensure long words break */
+    overflow-wrap: break-word; /* Ensure long words break */
+  }
+
+  .tab-content-inner > div > :is(p, h1, h2, h3, h4, h5, h6, div, span) { /* Target common block/inline-block elements */
+    max-width: 100%; /* Ensure they don't exceed card width */
+    box-sizing: border-box; /* Include padding and border in width */
+  }
+}
+
 @media (max-width: 700px) {
   .tabs-inner {
     grid-template-columns: repeat(5, 1fr);
@@ -405,6 +432,8 @@ main {
   
   main {
     margin: 1rem auto; /* Center the main content and add vertical margin */
+    padding: 1rem 0.5rem; /* Adjust horizontal padding for smaller screens */
+    width: 100%; /* Explicitly set width to 100% */
     min-height: 200px;
   }
 }
@@ -427,6 +456,8 @@ main {
   
   main {
     margin: 0.5rem auto; /* Center the main content and add vertical margin */
+    padding: 0.5rem 0.25rem; /* Adjust horizontal padding for very small screens */
+    width: 100%; /* Explicitly set width to 100% */
     min-height: 120px;
   }
 
