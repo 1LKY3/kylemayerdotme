@@ -273,13 +273,8 @@ header {
 }
 
 @media (max-width: 900px) {
-  .tab-content-inner > div * { /* Target all elements inside the direct div children */
-    word-wrap: break-word; /* Ensure long words break */
-    overflow-wrap: break-word; /* Ensure long words break */
-  }
-
-  .tab-content-inner > div > :is(p, h1, h2, h3, h4, h5, h6, div, span) { /* Target common block/inline-block elements */
-    max-width: 100%; /* Ensure they don't exceed card width */
+  .tab-content-inner > div { /* Target direct div children within tab-content-inner */
+    max-width: 100%; /* Ensure cards don't exceed container width */
     box-sizing: border-box; /* Include padding and border in width */
   }
 }
@@ -400,6 +395,12 @@ main {
 
 /* Adjust mobile breakpoint */
 @media (max-width: 768px) {
+  body { /* Use flexbox on body to center main */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .tabs-inner {
     display: none !important;
   }
@@ -431,7 +432,7 @@ main {
   }
   
   main {
-    margin: 1rem auto; /* Center the main content and add vertical margin */
+    margin: 1rem 0; /* Remove auto margin, centering handled by body flexbox */
     padding: 1rem 0.5rem; /* Adjust horizontal padding for smaller screens */
     width: 100%; /* Explicitly set width to 100% */
     min-height: 200px;
@@ -460,7 +461,7 @@ main {
     width: 100%; /* Explicitly set width to 100% */
     min-height: 120px;
   }
-
+  
   h2 {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
